@@ -21,7 +21,6 @@ const cors = require('cors');
 // CORS
 app.use(cors());
 app.use((req, res, next) => {
-  // app.use(cors({ origin: 'http://localhost:3001' }));
 
   
   res.setHeader('Access-Control-Allow-Origin', '*');
