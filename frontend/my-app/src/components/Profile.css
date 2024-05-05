@@ -1,0 +1,77 @@
+/* Profile.css */
+
+.profile-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profile-form {
+  margin-bottom: 20px;
+}
+
+.profile-input {
+  margin-bottom: 15px;
+}
+
+.profile-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.profile-input input[type="password"] {
+  font-family: inherit; /* Preserve font-family for password input */
+}
+
+
+.profile-button {
+  padding: 10px 20px;
+  margin-right: 10px; /* Add margin between buttons */
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:last-child {
+  margin-right: 0; /* Remove margin from the last button */
+}
+.profile-button:hover {
+  background-color: #0056b3;
+}
+
+.profile-authenticate {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-authenticate p {
+  font-size: 18px;
+  color: #555;
+}
+
+.profile-authenticate .profile-button {
+  margin-top: 10px;
+}

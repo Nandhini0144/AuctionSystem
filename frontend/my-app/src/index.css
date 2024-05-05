@@ -1,0 +1,113 @@
+#navigation{
+    padding-right:100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    justify-content: space-between;
+    border: 2px solid;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+  }
+  nav{
+    gap:100px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+  }
+  .product-card {
+    display: block;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease;
+  }
+  .product-container{
+    display: flex;
+    gap: 20px;
+    flex-wrap:wrap;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-card > div {
+    margin-bottom: 10px;
+  }
+
+
+
+
+
+
+  .login-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 50px;
+  }
+  
+  .login-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-form div {
+    margin-bottom: 10px;
+  }
+  
+  .login-form label {
+    font-weight: bold;
+  }
+  
+  .login-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .register-button {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .register-button button {
+    background-color: #28a745;
+  }
+  
+  .register-button button:hover {
+    background-color: #218838;
+  }
