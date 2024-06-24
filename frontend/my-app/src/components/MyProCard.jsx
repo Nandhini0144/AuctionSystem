@@ -43,9 +43,6 @@ const MyProCard = ({ product }) => {
         throw new Error('Failed to delete product');
       }
 
-      // Reload the page or update the product list after deletion
-      // You can implement this based on your application flow
-
     } catch (error) {
       console.error('Error deleting product:', error);
       // Handle error state

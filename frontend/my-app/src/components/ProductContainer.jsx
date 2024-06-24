@@ -1,19 +1,13 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ProCard from './ProCard';
-// import io from 'socket.io-client';
-
-// const socket = io('http://localhost:5000');
-import { SocketContext } from '../App';
-import {DomainContext } from '../App';
-
+import { SocketContext, DomainContext } from '../App';
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [List,setList]=useState([])
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const socket = useContext(SocketContext);
-  const url=useContext(DomainContext);
- 
+  const url = useContext(DomainContext);
 
   useEffect(() => {
     fetchData();
@@ -23,7 +17,11 @@ const ProductContainer = () => {
     return () => {
       socket.off('addProduct', handleAddProduct);
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    filterBySearchProduct(searchText);
+  }, [searchText, products]);
 
   const fetchData = async () => {
     try {
@@ -33,43 +31,46 @@ const ProductContainer = () => {
       }
       const json = await result.json();
       setProducts(json);
-      setList(json);
+      setFilteredProducts(json);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
-  }
+  };
 
-  const handleAddProduct = ({ product }) => {
-    setProducts(prevProducts => [...prevProducts, product]);
-  }
+  const handleAddProduct = (product) => {
+    setProducts((prevProducts) => [...prevProducts, product]);
+  };
 
   const updateSearchText = (e) => {
-    const val = e.target.value;
-    setSearchText(val);
-    filterBySearchProduct(val);
-  }
+    setSearchText(e.target.value);
+  };
 
   const filterBySearchProduct = (val) => {
-    const filteredData = products.filter((p) => {
-      return p.productName.toLowerCase().includes(val.toLowerCase());
-    })
-    setList(filteredData);
-  }
+    const filteredData = products.filter((p) => 
+      p.productName.toLowerCase().includes(val.toLowerCase())
+    );
+    setFilteredProducts(filteredData);
+  };
 
   if (products.length === 0) {
     return <div>Loading....</div>;
   }
 
   return (
-    <>
-      <input value={searchText} onChange={updateSearchText} placeholder="Search products..." />
+    <div className='app-container'>
+      <input
+        className='search-bar'
+        value={searchText}
+        onChange={updateSearchText}
+        placeholder="Search products..."
+      />
       <div className='product-container'>
-        {List.map((pro) => (
+        {filteredProducts.map((pro) => (
           <ProCard key={pro._id} product={pro} />
         ))}
       </div>
-    </>
+    </div>
   );
-}
+};
 
 export default ProductContainer;

@@ -1,21 +1,29 @@
-import {Link} from 'react-router-dom'
-import logo from '../logo.png'
+import { Link } from 'react-router-dom';
+import logo from '../logo.png';
+import './Header.css';  // Ensure this path is correct
+
 const Header = () => {
-    return (
-      <div id='navigation'>
-        <img src={logo} alt="Product" style={{ width: '110px', height: '100px' }} />
-        <nav>
+  return (
+    <div className="fixed-header">
+      <div id="navigation">
+        <img src={logo} alt="Product Logo" className='logo' />
+        <nav aria-label="Main navigation">
           <span>
-            <Link to="/">Home</Link></span>
-            <span>
-            <Link to="/add">Add</Link></span>
-            <span>
-            <Link to="/login">Login</Link></span>
-            <span>
-            <Link to="/profile">Profile</Link></span>
-            
+            <Link to="/" className="Lin">Home</Link>
+          </span>
+          <span>
+            <Link to="/add" className="Lin">Add</Link>
+          </span>
+          <span>
+            <Link to="/login" className="Lin">Login</Link>
+          </span>
+          <span>
+            <Link to="/profile" className="Lin">Profile</Link>
+          </span>
         </nav>
       </div>
-    )
-  }
-  export default Header
+    </div>
+  );
+};
+
+export default Header;

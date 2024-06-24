@@ -44,7 +44,7 @@ const Add = () => {
       setTimeout(() => {
         const id = response.data.product._id;
         axios.post(`${url}/api/auction/startAuction/${id}`)
-      }, 1000);
+      }, 1000*2*60);
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -61,7 +61,7 @@ const Add = () => {
     } else if (durationUnit === 'hours') {
       return durationValue * 3600; // Convert hours to seconds
     } else {
-      return durationValue * 86400; // Convert days to seconds
+      return durationValue *     86400; // Convert days to seconds
     }
   };
 

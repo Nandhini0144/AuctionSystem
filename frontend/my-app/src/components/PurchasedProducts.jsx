@@ -44,14 +44,14 @@ const PurchasedProducts = () => {
   }
   
   return (
-    <>
+    <div className='purchasedProduct-container'>
       <input value={searchText} onChange={updateSearchText} placeholder="Search products..." />
       <div className='product-container'>
         {List.map((pro) => (
           <PurProCard key={pro._id} product={pro} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -6,6 +6,8 @@ import { SocketContext } from '../App';
 import { useAuth } from './AuthContext';
 import './productDetails.css'
 import {DomainContext } from '../App';
+import { useNavigate } from 'react-router-dom';
+
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -22,6 +24,8 @@ const ProductDetails = () => {
   const [topBidders, setTopBidders] = useState([]);
   const url=useContext(DomainContext);
   const { authenticated } = useAuth();
+  const navigate = useNavigate();
+
   
   
   useEffect(() => {
@@ -131,10 +135,10 @@ const ProductDetails = () => {
             <button onClick={placeBid}>Place Bid</button>}
           {(isSold && product.seller._id === userId) &&
             <p>Winner: {winner}</p>}
-          {(isSold) &&
+          {(isSold) && product.auctionEnded && 
             <p>Product has sold! Auction ended</p>}
             {
-              (!isSold) &&
+              (!isSold) && product.auctionEnded && 
               <p>Product has not sold ! Auction ended   </p>
             }
           {(product.seller._id === userId && isSold && winnerDetails) &&
@@ -163,7 +167,7 @@ const ProductDetails = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div>   
 }   
 {
   !authenticated &&

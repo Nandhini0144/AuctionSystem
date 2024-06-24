@@ -1,0 +1,41 @@
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #a5a5a5;
+    border-bottom: 1px solid #4b27a6; /* Optional: add a border to distinguish the header from the content */
+    padding: 10px 0; /* Adjust padding as needed */
+  }
+  
+  #navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Adjust padding as needed to space out the content */
+  }
+  
+  .logo {
+    width: 110px;
+    height: 100px;
+  }
+  
+  nav {
+    display: flex;
+    gap: 15px;
+  }
+  
+  nav span {
+    display: inline-block;
+  }
+  
+  .Lin {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .Lin:hover {
+    text-decoration: underline;
+  }
+  

@@ -23,7 +23,7 @@ const MyProducts = () => {
     return () => {
       socket.off('addProduct', handleAddProduct);
     };
-  }, []);
+  }, [products]);
 
   const fetchData = async () => {
     try {
@@ -57,14 +57,14 @@ const MyProducts = () => {
   }
 
   return (
-    <>
-      <input value={searchText} onChange={updateSearchText} placeholder="Search products..." />
+    <div className='myProduct-container'>
+      <input className='search-bar' value={searchText} onChange={updateSearchText} placeholder="Search products..." />
       <div className='product-container'>
         {List.map((pro) => (
           <MyProCard key={pro._id} product={pro} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

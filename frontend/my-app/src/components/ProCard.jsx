@@ -1,12 +1,14 @@
-import {Link} from 'react-router-dom'
-import React, { useState, useEffect,useContext} from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io("http://192.168.48.239:5000");
-const ProCard=(props)=>{
-const{product}=props;
-const[timer,setTimer]=useState(product.timer);
-useEffect(() =>{
+const socket = io("http://172.16.132.74:5000");
+
+const ProCard = (props) => {
+  const { product } = props;
+  const [timer, setTimer] = useState(product.timer);
+
+  useEffect(() => {
     socket.on(`timerUpdate${product._id}`, handleTimerUpdate);
     return () => {
       socket.off(`timerUpdate${product._id}`, handleTimerUpdate);
@@ -16,17 +18,20 @@ useEffect(() =>{
   const handleTimerUpdate = ({ timer }) => {
     setTimer(timer);
   };
-return(
-<div className="product-container">
-<Link className="product-card" to={"/product/"+product._id}>
-    <div>
-    <img src={product.image} alt="Product" style={{ width: '100px', height: '100px' }} />
-    <div>Name:{product.productName}</div>
-    <div>Description:{product.description}</div>
-    <div>StartingBid:{product.startingBid}</div>
-    <div>Timer:{timer}</div>
+
+  return (
+    <div className="product-container">
+      <Link className="product-card" to={`/product/${product._id}`}>
+        <div>
+          <img src={product.image} alt="Product" />
+          <div className="product-name">Name: {product.productName}</div>
+          <div className="product-description">Description: {product.description}</div>
+          <div>Starting Bid: ${product.startingBid}</div>
+          <div className="product-timer">Timer: {timer}</div>
+        </div>
+      </Link>
     </div>
-</Link>
-</div>)
-}
-export default ProCard
+  );
+};
+
+export default ProCard;
