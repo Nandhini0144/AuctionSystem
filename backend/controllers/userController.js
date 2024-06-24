@@ -48,7 +48,7 @@ const emailVerification = async (req, email, name) => {
         from: process.env.EMAIL, // Update with your Gmail email
         to: email,
         subject: 'Email Verification',
-        text: `Hi ${name}! You have recently visited our website and entered your email. Please follow the given link to verify your email: http://192.168.48.239:5000/api/user/verify/${tok}/${name}/${email} Thanks`
+        text: `Hi ${name}! You have recently visited our website and entered your email. Please follow the given link to verify your email: http://172.16.132.74:5000/api/user/verify/${tok}/${name}/${email} Thanks`
     };
 
     transporter.sendMail(mailConfigurations, function (error, info) {

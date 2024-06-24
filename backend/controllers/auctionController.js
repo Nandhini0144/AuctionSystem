@@ -26,7 +26,7 @@ const startAuction=async(req,res)=>{
           timer -= 1;
           io.getIo().emit(`timerUpdate${product._id}`,{action:'updateTime',timer:timer});
           console.log(timer);
-        }, 1000*5*60);
+        }, 1000);
     
         // End auction after duration expires
         setTimeout(async () => {
