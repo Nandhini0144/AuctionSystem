@@ -23,7 +23,7 @@
   "main": "index.js",
   "scripts": {
    "prestart": "chmod +x node_modules/.bin/nodemon",
-    "start": "nodemon index.js"
+    "start": "npx nodemon index.js"
   },
   "author": "",
   "license": "ISC",
