@@ -96,6 +96,7 @@ const listBids = async (req, res, next) => {
 };
 
 const userHighestBid=async(req,res,next)=>{
+  try{
   const {productId}=req.params;
   console.log(typeof(productId));
   const amount = await Product.aggregate([
@@ -123,7 +124,11 @@ const userHighestBid=async(req,res,next)=>{
   
   console.log(amount);
   res.status(200).json(amount);
-
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
 
 }
 

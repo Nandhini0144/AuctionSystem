@@ -22,7 +22,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-   "prestart": "chmod +x node_modules/.bin/nodemon",
     "start": "nodemon index.js"
   },
   "author": "",

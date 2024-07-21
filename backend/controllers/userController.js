@@ -25,6 +25,7 @@ const emailVerificationHandler = async (req, res) => {
 }
 
 const emailVerification = async (req, email, name) => {
+    try{
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -48,7 +49,7 @@ const emailVerification = async (req, email, name) => {
         from: process.env.EMAIL, // Update with your Gmail email
         to: email,
         subject: 'Email Verification',
-        text: `Hi ${name}! You have recently visited our website and entered your email. Please follow the given link to verify your email: http://172.16.132.74:5000/api/user/verify/${tok}/${name}/${email} Thanks`
+        text: `Hi ${name}! You have recently visited our website and entered your email. Please follow the given link to verify your email: http://172.16.132.227:5000/api/user/verify/${tok}/${name}/${email} Thanks`
     };
 
     transporter.sendMail(mailConfigurations, function (error, info) {
@@ -61,6 +62,11 @@ const emailVerification = async (req, email, name) => {
             console.log(tok);
         }
     });
+}
+catch(error)
+{
+    console.log(error);
+}
 }
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -158,6 +164,7 @@ const profileDetails=async(req,res)=>{
    }
 }
 const modifyProfile=asyncHandler(async(req,res)=>{
+    try{
     const user = await User.findById(req.user._id);
     if (user) {
       user.name = req.body.name || user.name;
@@ -173,6 +180,10 @@ const modifyProfile=asyncHandler(async(req,res)=>{
     } else {
       res.status(404).send({ message: 'User not found' });
     }
+}catch(error)
+{
+    res.status(500).json({errors:[{msg:'server error'}]});
+}
 })
 const purchasedProducts=asyncHandler(async(req,res)=>{
      const {user}=req;
