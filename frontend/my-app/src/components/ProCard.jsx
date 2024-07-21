@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io("http://172.16.132.227:5000");
+const socket = io("https://auctionsystem-2.onrender.com");
 
 const ProCard = (props) => {
   const { product } = props;

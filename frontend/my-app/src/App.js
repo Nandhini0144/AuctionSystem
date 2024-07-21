@@ -14,8 +14,8 @@ import {AuthProvider} from './components/AuthContext'
 import Profile from './components/Profile';
 import PurchasedProducts from './components/PurchasedProducts'
 
-const socket = io("http://172.16.132.227:5000");
-const url="http://172.16.132.227:5000";
+const socket = io("https://auctionsystem-2.onrender.com");
+const url="https://auctionsystem-2.onrender.com";
 export const SocketContext = React.createContext();
 export const SocketContextAd=React.createContext();
 export const DomainContext=React.createContext();
