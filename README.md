@@ -8,5 +8,3 @@ TECH STACK USED - MERN
 >Socket.io used to establish bidirectional realtime communication between frontend and backend  
 >JWT tokens for authentication and nodemailer for user email verification  
 
-TO INSTALL ALL DEPENDENICIES  ---> npm i</br>
-TO RUN THE PROJECT            ---> npm start
