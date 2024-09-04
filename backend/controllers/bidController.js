@@ -1,10 +1,10 @@
 const Product = require('../models/auctionProductModel');
 const io = require('../socket');
-const { Mutex } = require('async-mutex');
+// const { Mutex } = require('async-mutex');
 
 
-// Object to store mutex locks for each product
-const productLocks = {};
+// // Object to store mutex locks for each product
+// const productLocks = {};
 
 const addBid = async (req, res, next) => {
   const { productId } = req.params;
@@ -14,53 +14,63 @@ const addBid = async (req, res, next) => {
     console.log(productId);
     console.log(amount);
     // Acquire the mutex lock for the specific product
-    if (!productLocks[productId]) {
-      productLocks[productId] = new Mutex();
-    }
-    const release = await productLocks[productId].acquire();
+    // if (!productLocks[productId]) {
+    //   productLocks[productId] = new Mutex();
+    // }
+    // const release = await productLocks[productId].acquire();
     const product = await Product.findById(productId).populate('seller', { password: 0 });
     if(product.seller._id==req.user.id)
     {
-      release();
+      // release();
       return res.status(400).json({errors:[{msg:'Seller cannot bid for their product'}]})
     }
     // Find the product by ID and populate the seller field
     if (!product) {
-      release(); // Release the mutex lock if product is not found
+      // release(); // Release the mutex lock if product is not found
       return res.status(404).json({ errors: [{ msg: 'Product not found' }] });
     }
     
     console.log(product.currentBid);
     
-    // Check bid validity
-    if (parseFloat(product.currentBid) >= parseFloat(amount)) {
-      release(); // Release the mutex lock if bid amount is not higher
-      return res.status(400).json({ errors: [{ msg: 'Bid amount must be higher than current price' }] });
-    }
-    
+   
     // Check auction status
     if (product.sold || product.auctionEnded || !product.auctionStarted) {
-      release(); // Release the mutex lock if auction has ended or has not started
+      // release(); // Release the mutex lock if auction has ended or has not started
       return res.status(400).json({ errors: [{ msg: 'Auction has ended or has not started' }] });
     }
     
     // Add bid to the product
-    if (!product.bids) {
-      product.bids = [];
+    const result = await product.findOneAndUpdate(
+      {
+        _id: productId,
+        currentBid: { $lt: amount } // Ensure only higher bids can update the current bid
+      },
+      {
+        $set: {
+          currentBid: amount,
+          currentBidder: req.user.id,
+          auctionEnded: product.auctionEnded, // Maintain auction status if needed
+        },
+        $push: { bids: { user: req.user.id, amount: amount } } // Push the new bid to the bids array
+      },
+      {
+        returnOriginal: false // Return the updated document after the update
+      }
+    );
+
+    if (result.value) {
+      console.log('Bid updated successfully:', result.value);
+      io.getIo().emit(`bidPosted${productId}`, { highestBid: amount, biduserId: req.user.id });
+      return res.status(200).json({ msg: 'Bid placed successfully', product: result.value });
+    } else {
+      return res.status(400).json({ errors: [{ msg: 'Bid was not high enough or product not found' }] });
     }
-    product.bids.push({ user: req.user.id, amount: amount });
-    product.currentBid = amount;
-    product.currentBidder = req.user.id;
-    
     // Save the updated product
-    const savedProduct = await product.save();
     
-    io.getIo().emit(`bidPosted${productId}`, { highestBid: amount, biduserId: req.user.id });
+    
     
     // Release the mutex lock
-    release();
-    
-    res.status(200).json(savedProduct);
+    // release();
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: [{ msg: 'Server error' }] });
